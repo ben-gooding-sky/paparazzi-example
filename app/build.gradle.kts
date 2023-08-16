@@ -2,9 +2,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("app.cash.paparazzi") version "1.3.1"
 }
 
+
 android {
+
     namespace = "com.example.paparazziexample"
     compileSdk = 34
 
@@ -41,11 +44,18 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    testOptions {
+        animationsDisabled = true
+        unitTests.isReturnDefaultValues = true
+        unitTests.all {
+            it.useJUnitPlatform()
         }
     }
 }
@@ -61,6 +71,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     testImplementation(libs.junit)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
